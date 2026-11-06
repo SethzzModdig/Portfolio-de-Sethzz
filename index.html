@@ -1,0 +1,636 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#090d12">
+  <meta name="description" content="Sethz — Desenvolvimento de software, projetos Android e estudos de cibersegurança.">
+
+  <title>Sethz | Developer & Security Research</title>
+
+  <style>
+    :root {
+      --bg: #090d12;
+      --surface: #101720;
+      --surface-2: #151f2a;
+      --border: #25313d;
+      --text: #dce5ed;
+      --muted: #8997a5;
+      --accent: #4ade80;
+      --accent-dark: #183d2a;
+      --mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(100% - 40px, 920px);
+      margin: auto;
+    }
+
+    /* NAVIGATION */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(9, 13, 18, .92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      min-height: 68px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-family: var(--mono);
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      list-style: none;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 105px 0 90px;
+    }
+
+    .terminal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      margin-bottom: 38px;
+      overflow: hidden;
+    }
+
+    .terminal-bar {
+      padding: 12px 15px;
+      display: flex;
+      gap: 7px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #35414d;
+    }
+
+    .terminal-content {
+      padding: 20px;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .terminal-content p {
+      margin-bottom: 5px;
+    }
+
+    .prompt {
+      color: var(--accent);
+    }
+
+    .hero-label {
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: var(--mono);
+      font-size: clamp(38px, 8vw, 65px);
+      line-height: 1.15;
+      letter-spacing: -3px;
+      margin-bottom: 20px;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .hero-description {
+      max-width: 600px;
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 28px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 11px 19px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: .2s;
+    }
+
+    .button-primary {
+      background: var(--accent);
+      color: #07150c;
+      border-color: var(--accent);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    /* GENERAL SECTIONS */
+
+    section {
+      padding: 65px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-family: var(--mono);
+      font-size: 25px;
+      margin-bottom: 20px;
+    }
+
+    .section-description {
+      color: var(--muted);
+      max-width: 650px;
+      margin-bottom: 30px;
+    }
+
+    /* ABOUT */
+
+    .about-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 25px;
+    }
+
+    .about-box p {
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .about-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* SKILLS */
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 8px 13px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text);
+    }
+
+    /* PROJECTS */
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .project {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      min-height: 215px;
+      transition: .2s;
+    }
+
+    .project:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .project-type {
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 11px;
+      margin-bottom: 12px;
+    }
+
+    .project h3 {
+      font-family: var(--mono);
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .project p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .project-link {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: auto;
+    }
+
+    /* SECURITY */
+
+    .security-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 22px;
+    }
+
+    .security-box p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer a {
+      color: var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding: 70px 0;
+      }
+
+      .nav-links {
+        gap: 12px;
+        font-size: 11px;
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <a href="#" class="logo">sethz<span>.</span></a>
+
+      <ul class="nav-links">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#habilidades">Habilidades</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#seguranca">Segurança</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+
+  <div class="container">
+    <section class="hero" style="border:0">
+
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+
+        <div class="terminal-content">
+          <p><span class="prompt">user@sethz</span>:~$ whoami</p>
+          <p>Developer & Security Enthusiast</p>
+          <p><span class="prompt">user@sethz</span>:~$ status</p>
+          <p>Learning, building and experimenting.</p>
+          <p><span class="prompt">user@sethz</span>:~$ <span>_</span></p>
+        </div>
+      </div>
+
+      <p class="hero-label">// DEVELOPER • SECURITY RESEARCH</p>
+
+      <h1>Building.<br><span>Breaking.</span><br>Learning.</h1>
+
+      <p class="hero-description">
+        Explorando desenvolvimento de software, Android,
+        automação e cibersegurança. Transformando ideias
+        em projetos e conhecimento em prática.
+      </p>
+
+      <div class="buttons">
+        <a class="button button-primary"
+           href="https://github.com/SethzzModdig"
+           target="_blank" rel="noopener noreferrer">
+          GitHub →
+        </a>
+
+        <a class="button" href="#projetos">
+          Explorar projetos
+        </a>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- ABOUT -->
+
+  <section id="sobre">
+    <div class="container">
+
+      <p class="section-label">// 01 — ABOUT</p>
+      <h2>Sobre mim</h2>
+
+      <div class="about-box">
+        <p>
+          Sou um desenvolvedor em aprendizado, interessado
+          em tecnologia, desenvolvimento Android e segurança
+          de aplicações.
+        </p>
+
+        <p>
+          Desenvolvo projetos independentes, modifico
+          aplicações de código aberto respeitando suas
+          licenças e experimento diferentes tecnologias.
+        </p>
+
+        <p>
+          Atualmente, estou aprofundando meus conhecimentos
+          em programação, desenvolvimento web e testes de
+          segurança em ambientes controlados.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+
+  <section id="habilidades">
+    <div class="container">
+
+      <p class="section-label">// 02 — TECHNOLOGIES</p>
+      <h2>Tecnologias e interesses</h2>
+
+      <p class="section-description">
+        Ferramentas e áreas com as quais trabalho ou estudo.
+        Meu conhecimento está em constante desenvolvimento.
+      </p>
+
+      <div class="skills">
+        <span class="skill">HTML5</span>
+        <span class="skill">CSS3</span>
+        <span class="skill">JavaScript</span>
+        <span class="skill">Python</span>
+        <span class="skill">Termux</span>
+        <span class="skill">Android</span>
+        <span class="skill">Git & GitHub</span>
+        <span class="skill">Linux</span>
+        <span class="skill">Pentest Labs</span>
+        <span class="skill">Web Security</span>
+        <span class="skill">Minecraft Bedrock</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+
+  <section id="projetos">
+    <div class="container">
+
+      <p class="section-label">// 03 — PROJECTS</p>
+      <h2>Projetos selecionados</h2>
+
+      <p class="section-description">
+        Alguns projetos independentes que desenvolvi,
+        modifiquei ou estou explorando.
+      </p>
+
+      <div class="projects">
+
+        <article class="project">
+          <span class="project-type">ANDROID / OPEN SOURCE</span>
+
+          <h3>KzinMods — Termux:Float</h3>
+
+          <p>
+            Build modificada do Termux:Float baseada em
+            um fork de terceiros, com distribuição independente
+            e atenção aos termos da licença original.
+          </p>
+
+          <a class="project-link"
+             href="https://github.com/SethzzModdig/KaioMod-unofficial-Termux-Float-fork-"
+             target="_blank" rel="noopener noreferrer">
+            Ver repositório →
+          </a>
+        </article>
+
+        <article class="project">
+          <span class="project-type">MINECRAFT / JAVASCRIPT</span>
+
+          <h3>Kaio Music Player</h3>
+
+          <p>
+            Behavior Pack para Minecraft Bedrock com
+            sistema de interface personalizada e integração
+            com APIs de scripts.
+          </p>
+
+          <span class="project-link">Projeto independente</span>
+        </article>
+
+        <article class="project">
+          <span class="project-type">WEB DEVELOPMENT</span>
+
+          <h3>Web Projects</h3>
+
+          <p>
+            Desenvolvimento de páginas web utilizando
+            HTML, CSS e JavaScript, incluindo hospedagem
+            e publicação com GitHub Pages.
+          </p>
+
+          <a class="project-link"
+             href="https://github.com/SethzzModdig"
+             target="_blank" rel="noopener noreferrer">
+            Explorar GitHub →
+          </a>
+        </article>
+
+        <article class="project">
+          <span class="project-type">CYBERSECURITY / LABS</span>
+
+          <h3>Web Security Labs</h3>
+
+          <p>
+            Estudos práticos de segurança em aplicações web,
+            com testes em ambientes próprios ou autorizados,
+            incluindo aplicações PHP.
+          </p>
+
+          <span class="project-link">Em aprendizado</span>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECURITY -->
+
+  <section id="seguranca">
+    <div class="container">
+
+      <p class="section-label">// 04 — SECURITY</p>
+      <h2>Cibersegurança</h2>
+
+      <div class="security-box">
+        <p>
+          Meu interesse em segurança está concentrado
+          em entender como aplicações funcionam, identificar
+          possíveis vulnerabilidades e aprender técnicas
+          de análise e testes de segurança.
+        </p>
+
+        <br>
+
+        <p>
+          Os testes são realizados exclusivamente em
+          laboratórios próprios ou sistemas para os quais
+          existe autorização.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+
+  <section id="contato">
+    <div class="container">
+
+      <p class="section-label">// 05 — CONTACT</p>
+      <h2>Encontre meus projetos</h2>
+
+      <p class="section-description">
+        Acompanhe meus projetos, códigos e experimentos
+        diretamente pelo GitHub.
+      </p>
+
+      <a class="button button-primary"
+         href="https://github.com/SethzzModdig"
+         target="_blank" rel="noopener noreferrer">
+        github.com/SethzzModdig →
+      </a>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>© <span id="year"></span> Sethz. Built with HTML & CSS.</p>
+    <p>Independent projects. Continuous learning.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
+</script>
+
+</body>
+</html>
